@@ -6,8 +6,8 @@ import { RouteProtecd } from './components/routeProtecd';
 
 const Router = () => (
   <Routes>
-    <Route path='/' element={<LoginPage />} />
     <Route path='/register' element={<RegisterPage />} />
+    <Route path='/' element={<LoginPage />} />
     <Route path='/shop' element={<RouteProtecd />}>
       <Route index element={<ShopPage />} />
     </Route>

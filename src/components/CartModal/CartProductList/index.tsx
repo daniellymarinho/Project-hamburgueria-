@@ -9,11 +9,8 @@ import { CartContext } from '../../../context/cartContext';
 const CartProductList = () => {
   const { listProductsCart } = useContext(CartContext);
 
-  const [currentSale, setCurrentSale] = useState(0);
-
-  const currentBalance = () => {
+  const currentBalance = () =>
     listProductsCart.reduce((acc, product) => acc + product.price, 0);
-  };
 
   return (
     <StyledCartProductList>
