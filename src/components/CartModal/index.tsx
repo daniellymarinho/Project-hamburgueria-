@@ -1,38 +1,43 @@
 import { MdClose } from 'react-icons/md';
+import { useContext, useState } from 'react';
 import CartProductList from './CartProductList';
-
 import { StyledCartModalBox } from './style';
 import { StyledParagraph, StyledTitle } from '../../styles/typography';
 
-const CartModal = () => (
-  <StyledCartModalBox>
-    <dialog>
-      <header>
-        <StyledTitle tag='h2' $fontSize='three'>
-          Carrinho de compras
-        </StyledTitle>
-        <button
-          type='button'
-          aria-label='Fechar'
-          onClick={() => {
-            console.log('Lógica aqui');
-          }}
-        >
-          <MdClose size={21} />
-        </button>
-      </header>
-      <div className='cartBox'>
-        <CartProductList />
+import { CartContext } from '../../context/cartContext';
 
-        <div className='emptyBox'>
-          <StyledTitle tag='h3' $fontSize='three' textAlign='center'>
-            Sua sacola está vazia
+const CartModal = () => {
+  const { modal, toggleModal, listProductsCart, showProducts } =
+    useContext(CartContext);
+
+  return (
+    <StyledCartModalBox style={{ display: modal ? 'flex' : 'none' }}>
+      <dialog>
+        <header>
+          <StyledTitle tag='h2' $fontSize='three'>
+            Carrinho de compras
           </StyledTitle>
-          <StyledParagraph textAlign='center'>Adicione itens</StyledParagraph>
+          <button type='button' aria-label='Fechar' onClick={toggleModal}>
+            <MdClose size={21} />
+          </button>
+        </header>
+        <div className='cartBox'>
+          {listProductsCart.length > 0 ? (
+            <CartProductList />
+          ) : (
+            <div className='emptyBox'>
+              <StyledTitle tag='h3' $fontSize='three' textAlign='center'>
+                Sua sacola está vazia
+              </StyledTitle>
+              <StyledParagraph textAlign='center'>
+                Adicione itens
+              </StyledParagraph>
+            </div>
+          )}
         </div>
-      </div>
-    </dialog>
-  </StyledCartModalBox>
-);
+      </dialog>
+    </StyledCartModalBox>
+  );
+};
 
 export default CartModal;
